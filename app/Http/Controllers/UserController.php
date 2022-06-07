@@ -10,6 +10,7 @@ use Response;
 
 class UserController extends Controller
 {
+
     public function index ($tipo){
         $tipo = \Util::obtenerPrimeraLetra($tipo);
         if ($tipo === 'I'){
@@ -17,6 +18,7 @@ class UserController extends Controller
         }else{
             $usuarios = User::where('tipo',$tipo)->where('estado','A')->get();
         }
+
 
         $datos = [
             'tipo' => $tipo,

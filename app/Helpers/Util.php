@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 class Util {
+
     public static function obtenerPrimeraLetra($cadena){
         $caracter = substr($cadena,0,1);
         return $caracter;
@@ -63,6 +64,39 @@ class Util {
         return $fechaNueva;
     }
 
+    public static function colorEstado($estado){
+        if ($estado === 'A'){
+            $color = 'success';
+        }else{
+            $color = 'warning';
+        }
+        return $color;
+    }
+    public static function colorConsulta($estado){
+        if ($estado === 'P'){
+            $color = 'warning';
+        }else{
+            $color = 'success';
+        }
+        return $color;
+    }
+
+    public static function stringEstado($estado){
+        if ($estado === 'A'){
+            $texto = 'Activo';
+        }else{
+            $texto = 'Inactivo';
+        }
+        return $texto;
+    }
+    public static function consultaEstado($estado){
+        if ($estado === 'P'){
+            $texto = 'Pendiente';
+        }else{
+            $texto = 'Revisado';
+        }
+        return $texto;
+    }
 }
 
 

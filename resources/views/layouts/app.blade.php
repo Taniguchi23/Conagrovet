@@ -10,7 +10,8 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="/assets/img/favicon.png" rel="icon">
+
+    <link rel="icon" href="/asset/img/icono.png">
     <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
@@ -39,15 +40,15 @@
 
     <div class="d-flex align-items-center justify-content-between">
         <a href="{{route('home')}}" class="logo d-flex align-items-center">
-            <img src="/assets/img/logo.png" alt="">
-            <span class="d-none d-lg-block">Conagrovet</span>
+            <img src="/asset/img/icono.png" alt="">
+            <span class="d-none d-lg-block text-success">Conagrovet</span>
         </a>
-        <i class="bi bi-list toggle-sidebar-btn"></i>
+        <i class="bi bi-list toggle-sidebar-btn text-success"></i>
     </div><!-- End Logo -->
 
     <div class="search-bar">
         <form class="search-form d-flex align-items-center" method="POST" action="#">
-            <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+            <input type="text" name="query" placeholder="Buscar" title="Enter search keyword">
             <button type="submit" title="Search"><i class="bi bi-search"></i></button>
         </form>
     </div><!-- End Search Bar -->
@@ -332,6 +333,14 @@
                 </li>
             </ul>
         </li><!-- End Forms Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{route('admin.consultas')}}">
+                <i class="bi bi-question-circle"></i>
+                <span>Consultas</span>
+            </a>
+        </li><!-- End F.A.Q Page Nav -->
+
         @endif
         @if(Auth::user()->tipo === 'D' || Auth::user()->tipo === 'A')
         <li class="nav-item">

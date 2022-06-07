@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Pages / Login - NiceAdmin Bootstrap Template</title>
+    <title>Conagrovet / Login </title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="/assets/img/favicon.png" rel="icon">
+    <link rel="icon" href="/asset/img/icono.png">
     <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
@@ -28,7 +28,7 @@
 
     <!-- Template Main CSS File -->
     <link href="/assets/css/style.css" rel="stylesheet">
-
+    <script src="https://kit.fontawesome.com/8f50832512.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -42,9 +42,9 @@
                     <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
                         <div class="d-flex justify-content-center py-4">
-                            <a href="index.html" class="logo d-flex align-items-center w-auto">
-                                <img src="assets/img/logo.png" alt="">
-                                <span class="d-none d-lg-block">Conagrovet</span>
+                            <a href="/" class="logo d-flex align-items-center w-auto">
+                                <img src="/asset/img/icono.png" alt="">
+                                <span class="d-none d-lg-block text-success">Conagrovet</span>
                             </a>
                         </div><!-- End Logo -->
 
@@ -53,8 +53,8 @@
                             <div class="card-body">
 
                                 <div class="pt-4 pb-2">
-                                    <h5 class="card-title text-center pb-0 fs-4">Bienvenido a Conagrovet</h5>
-                                    <p class="text-center small">Ingresa tu email y contraseña</p>
+                                    <h5 class="card-title text-center pb-0 fs-4 text-success">Bienvenido a Conagrovet</h5>
+                                    <p class="text-center small text-success">Ingresa tu email y contraseña</p>
                                 </div>
 
                                 <form class="row g-3 needs-validation" action="{{route('login')}}" method="POST" novalidate>
@@ -92,7 +92,12 @@
                         </div>
 
                         <div class="credits">
-                            Designed by <a href="#">Conagrovet</a>
+                            Designed by <a href="https://conagrovet.com">Conagrovet</a>
+                            <div class="text-center m-4">
+                                <a class="m-2" href="https://es-la.facebook.com/Conagrovet/" target="_blank"><i class="fa-brands fa-facebook fa-2x"></i></a>
+                                <a class="m-2" href="https://www.instagram.com/conagrovet/?hl=es" target="_blank"><i class="fa-brands fa-instagram text-danger fa-2x"></i></a>
+                                <a class="m-2" href="https://conagrovet.com" target="_blank"><i class="fa-solid fa-house text-success fa-2x"></i></a>
+                            </div>
                         </div>
 
                     </div>

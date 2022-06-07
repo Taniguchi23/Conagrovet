@@ -10,16 +10,35 @@ use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\RazaController;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\VacunaController;
+use App\Http\Controllers\WebController;
+use App\Http\Controllers\BotmanController;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::controller(WebController::class)->group(function (){
+    Route::get('/','index')->name('web.index');
+    Route::get('/quienes','quienes')->name('web.quienes');
+    Route::get('contacto','contactos')->name('web.contactos');
+    Route::get('/servicio','servicios')->name('web.servicios');
+    Route::get('/nosotros','familia')->name('web.nosotros');
+    Route::get('/login','autentificacions');
+    Route::post('/consultas','consultas');
+//    Route::post('/contacto','contactos');
 });
+//Route::get('/chat',[WebController::class,'bot']);
+Route::match(['get','post'],'/botman',[BotManController::class,'handle']);
 
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function (){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::group(['middleware' => 'isAdmin'], function (){
+
+        Route::controller(AdminController::class)->group(function (){
+            Route::get('/admin/consultas','consultas')->name('admin.consultas');
+            Route::get('/admin/consultas/edit/{id}','consultasEdit');
+            Route::post('/admin/consultas/update/{id}','consultasUpdate')->name('admin.consultas.update');
+            Route::get('/admin/consultas/cambio/{id}','cambio')->name('admin.consultas.cambio');
+        });
+
         Route::controller(UserController::class)->group(function (){
             Route::get('/usuarios/tipo/{val}','index')->name('usuarios.index');
             Route::post('/usuarios/store','store')->name('usuarios.store');
@@ -67,6 +86,10 @@ Route::group(['middleware' => 'auth'], function (){
             Route::post('/vacunas/update/{id}','update')->name('vacunas.update');
             Route::get('/vacunas/delete/{id}','delete')->name('vacunas.delete');
         });
+
+        Route::controller(AnimalController::class)->group(function (){
+           Route::get('/animales','index')->name('animales.index');
+        });
     });
 
 
@@ -75,7 +98,7 @@ Route::group(['middleware' => 'auth'], function (){
 
 
 
-Route::get('storage-link',function (){
+Route::get('/storage-link',function (){
     Artisan::call('storage:link');
     return 'storage:link activado';
 });
