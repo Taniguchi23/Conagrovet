@@ -70,17 +70,17 @@
                     <div class="modal-body">
                         <div class="card-body">
                             <div class="row g-3">
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <label for="validationDefault01" class="form-label">Cliente</label>
-                                    <input type="text" class="form-control" id="nombre"  name="nombre" value="" required disabled>
+                                    <input type="text" class="form-control" id="nombre"  name="nombre" value="" required readonly>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <label for="validationDefault01" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email"  name="email" value="" required disabled>
+                                    <input type="email" class="form-control" id="email"  name="email" value="" required readonly>
                                 </div>
                                 <div class="col-md-12">
                                     <label for="validationDefault01" class="form-label">Consulta</label>
-                                    <textarea class="form-control" placeholder="Leave a comment here" name="descripcion" id="descripcion" style="height: 100px;"></textarea>
+                                    <textarea class="form-control" placeholder="Leave a comment here" name="descripcion" id="descripcion" style="height: 100px;" readonly></textarea>
                                 </div>
                                 <div id="divEstado" class="col-md-6" style="display: none">
                                     <label for="validationDefault05" class="form-label">Estado</label>
