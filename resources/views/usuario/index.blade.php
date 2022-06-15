@@ -156,7 +156,6 @@
         }
 
      $('#tabla').on('click','.btnEditar',function (){
-
          let val_id = $(this).data('id');
          let val_url = '/usuarios/edit/'+val_id;
          let val_url_update = '/usuarios/update/'+val_id;

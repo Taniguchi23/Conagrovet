@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\VacunaController;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\BotmanController;
+use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\PerroController;
 
 Route::controller(WebController::class)->group(function (){
     Route::get('/','index')->name('web.index');
@@ -30,6 +32,18 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function (){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+    Route::controller(DoctorController::class)->group(function (){
+        Route::get('/citas','index')->name('citas.index');
+        Route::get('/citas/atender','atender')->name('citas.atender');
+    });
+
+    Route::controller(PerroController::class)->group(function (){
+        Route::get('/perros','index')->name('perros.index');
+
+    });
+
+
     Route::group(['middleware' => 'isAdmin'], function (){
 
         Route::controller(AdminController::class)->group(function (){
@@ -94,8 +108,6 @@ Route::group(['middleware' => 'auth'], function (){
 
 
 });
-
-
 
 
 Route::get('/storage-link',function (){
