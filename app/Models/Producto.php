@@ -12,4 +12,12 @@ class Producto extends Model
     public function marca(){
         return $this->belongsTo(Marca::class);
     }
+
+    public function series (){
+        return $this->hasMany(Serie::class);
+    }
+
+    public function vacunas(){
+        return $this->hasMany(Vacuna::class);
+    }
 }

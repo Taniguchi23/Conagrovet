@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class ProductoController extends Controller
 {
     public function index(){
-        $productos = Producto::all();
+        $productos = Producto::orderBy('estado','ASC')->get();
         $marcas = Marca::all();
         $datos = [
             'productos' => $productos,
@@ -48,6 +48,7 @@ class ProductoController extends Controller
         $producto->codigo_factura = $request->codigoFactura;
         $producto->cantidad = $request->cantidad;
         $producto->unidad = $request->unidad;
+        $producto->estado = $request->estado;
         $producto->save();
         return redirect()->route('productos.index');
     }

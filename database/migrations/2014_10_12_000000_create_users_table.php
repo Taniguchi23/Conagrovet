@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('dni',8)->nullable();
             $table->char('tipo',1)->default('C')->comment('A:Administrador | C: Cliente | E:Empleado | D:Doctor');
             $table->string('direccion',200)->nullable();
+            $table->string('imagen',65)->nullable();
             $table->char('estado',1)->default('A');
             $table->rememberToken();
             $table->timestamps();

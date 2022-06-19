@@ -17,11 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('marca_id')->references('id')->on('marcas');
             $table->string('nombre',200);
-            $table->string('codigo_factura',50);
-            $table->float('cantidad',8,2);
             $table->string('unidad')->default('und');
             $table->text('descripcion')->nullable();
-            $table->char('estado')->default('E')->comment('E: existe | N: No existe | U:usado');
+            $table->char('estado')->default('A')->comment('A: activo | I: Inactivo');
             $table->timestamps();
         });
     }

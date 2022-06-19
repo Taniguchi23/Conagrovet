@@ -19,8 +19,6 @@ class ProductoTableSeeder extends Seeder
             [
                 'marca_id' => 1,
                 'nombre' => '1° vacuna (doble)',
-                'codigo_factura' => '088765-089',
-                'cantidad' => 25,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
                 'descripcion' => 'distemper y parvovirus',
@@ -28,8 +26,6 @@ class ProductoTableSeeder extends Seeder
             [
                 'marca_id' => 1,
                 'nombre' => '2° vacuna (Triple)',
-                'codigo_factura' => '088765-089',
-                'cantidad' => 25,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
                 'descripcion' => 'distemper , hepatitis y leptospira',
@@ -37,8 +33,6 @@ class ProductoTableSeeder extends Seeder
             [
                 'marca_id' => 1,
                 'nombre' => '3° vacuna (Cuadruple)',
-                'codigo_factura' => '088765-089',
-                'cantidad' => 25,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
                 'descripcion' => 'distemper, parvovirus, hepatitis , parainfluenza',
@@ -46,8 +40,6 @@ class ProductoTableSeeder extends Seeder
             [
                 'marca_id' => 2,
                 'nombre' => '4° vacuna (Quintuple)',
-                'codigo_factura' => '088765-089',
-                'cantidad' => 25,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
                 'descripcion' => 'distemper, parvovirus, hepatitis , parainfluenza, leptospira',
@@ -55,8 +47,6 @@ class ProductoTableSeeder extends Seeder
             [
                 'marca_id' => 2,
                 'nombre' => '5° vacuna (Sextuple)',
-                'codigo_factura' => '088765-089',
-                'cantidad' => 25,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
                 'descripcion' => 'distemper, parvovirus, hepatitis , parainfluenza, leptospira y rabia',

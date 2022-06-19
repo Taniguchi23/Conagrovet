@@ -1,12 +1,12 @@
 @extends('layouts.app')
 @section('content')
     <div class="pagetitle">
-        <h1>Tipos de animales</h1>
+        <h1>Razas</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
                 <li class="breadcrumb-item">Registros</li>
-                <li class="breadcrumb-item active">Tipos</li>
+                <li class="breadcrumb-item active">Razas</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -20,11 +20,11 @@
                         <div class="col-md-12">
                             <div class="row justify-content-between">
                                 <div class="col-4">
-                                    <h5 class="card-title mt-2 ml-2">Lista de tipos de animales</h5>
+                                    <h5 class="card-title mt-2 ml-2">Lista de Razas</h5>
                                 </div>
 
                                 <div class="mt-4 col-2">
-                                    <button class="btn btn-success btnCrear"  data-bs-toggle="modal" data-bs-target="#modalDatos">Crear tipos</button>
+                                    <button class="btn btn-success btnCrear"  data-bs-toggle="modal" data-bs-target="#modalDatos">Crear Raza</button>
                                 </div>
 
                             </div>
@@ -35,20 +35,25 @@
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
+                                <th scope="col">Tipo</th>
                                 <th scope="col">Nombre</th>
+                                <th scope="col">Orden</th>
                                 <th scope="col">Estado</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($animales as $ids => $animal)
+                            @foreach($razas as $ids => $raza)
                                 <tr>
                                     <th scope="row">{{$ids+1}}</th>
-                                    <td>{{$animal->nombre}}</td>
-                                    <td><span class="rounded-3 p-1 bg-{{Util::colorEstado($animal->estado)}} text-white">{{Util::stringEstado($animal->estado)}}</span></td>
+                                    <td>{{$raza->animal->nombre}}</td>
+                                    <td>{{$raza->nombre}}</td>
+                                    <td>{{$raza->presentacion}}</td>
+                                    <td><span class="rounded-3 p-1 bg-{{Util::colorEstado($raza->estado)}} text-white">{{Util::stringEstado($raza->estado)}}</span></td>
+
                                     <td>
-                                        <button type="button" data-bs-target="#modalDatos" data-bs-toggle="modal" class="btn btn-m text-primary btnEditar" data-id="{{$animal->id}}"><i class="bi bi-pencil-square"></i></button>
-                                        <a class="text-danger" href="{{route('animales.delete',$animal->id)}}" onclick="return confirm ('¿Está seguro de eliminar este registro')"><i class="bi bi-trash-fill"></i></a>
+                                        <button type="button" data-bs-target="#modalDatos" data-bs-toggle="modal" class="btn btn-m text-primary btnEditar" data-id="{{$raza->id}}"><i class="bi bi-pencil-square"></i></button>
+                                        <a class="text-danger" href="{{route('razas.delete',$raza->id)}}" onclick="return confirm ('¿Está seguro de eliminar este registro')"><i class="bi bi-trash-fill"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -69,19 +74,32 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitulo">Nuevo tipo de animal</h5>
+                    <h5 class="modal-title" id="modalTitulo">Nueva Raza</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{route('animales.store')}}" method="post" id="formulario">
+                <form action="{{route('razas.store')}}" method="post" id="formulario">
                     @csrf
                     <div class="modal-body">
                         <div class="card-body">
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <label for="validationDefault01" class="form-label">Tipo de animal</label>
-                                    <input type="text" class="form-control" id="tipo"  name="tipo" value="" required>
+                                    <label for="validationDefault01" class="form-label">Raza</label>
+                                    <input type="text" class="form-control" id="nombre"  name="nombre" value="" required>
                                 </div>
-                                <div id="divEstado" class="col-md-6" style="display: none">
+                                <div class="col-md-4">
+                                    <label for="validationDefault04" class="form-label">Tipo de animal</label>
+                                    <select class="form-select" id="animal_id" name="animal_id" required>
+                                        @foreach($animales as $animal)
+                                            <option value="{{$animal->id}}">{{$animal->nombre}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="validationDefault05" class="form-label">Presentación</label>
+                                    <input type="number" class="form-control" id="presentacion" name="presentacion" min="1" >
+                                </div>
+
+                                <div id="divEstado" class="col-md-4" style="display: none">
                                     <label for="validationDefault05" class="form-label">Estado</label>
                                     <select class="form-select" name="estado" id="estado">
                                     </select>
@@ -104,25 +122,30 @@
 
         $('#tabla').on('click','.btnEditar',function (){
             let val_id = $(this).data('id');
-            let val_url = '/animales/edit/'+val_id;
-            let val_url_update = '/animales/update/'+val_id;
+            let val_url = '/razas/edit/'+val_id;
+            let val_url_update = '/razas/update/'+val_id;
             $.get(val_url, function (res){
                 $('#formulario').attr('action',val_url_update);
-                $('#modalTitulo').html('Editar tipo de animales');
-                $('#tipo').val(res.tipo);
+                $('#modalTitulo').html('Editar Raza');
+                $('#nombre').val(res.raza.nombre);
+                $('#presentacion').val(res.raza.presentacion);
+
                 $('#divEstado').css('display','block');
                 $('#estado').empty();
                 $('#estado').append($('<option>',{value: 'A', text: 'Activo'}),$('<option>',{value: 'I', text: 'Inactivo'}));
-                $('#estado  option[value = '+res.estado+']').attr('selected',true);
+                $('#estado  option[value = '+res.raza.estado+']').attr('selected',true);
                 $('#modalDatos').modal('show');
             });
         });
 
         $('.btnCrear').click(function (){
-            let val_url_store = '/animales/store';
+            let val_url_store = '/razas/store';
+
             $('#formulario').attr('action',val_url_store);
-            $('#modalTitulo').html('Nuevo tipo de animal');
-            $('#tipo').val('');
+            $('#modalTitulo').html('Nueva Raza');
+            $('#nombre').val('');
+            $('#presentacion').val('');
+            $('#divEstado').css('display','none');
             $('#estado').empty();
             $('#estado').css('display','none')
             $('.btnGuardar').html('Guardar');
@@ -130,4 +153,3 @@
         });
     </script>
 @endsection
-

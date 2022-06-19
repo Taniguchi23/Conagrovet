@@ -14,6 +14,10 @@ class DatabaseSeeder extends Seeder
             UserTableSeeder::class,
             MarcaTableSeeder::class,
             ProductoTableSeeder::class,
+            SeriesTableSeeder::class,
+            AnimalTableSeeder::class,
+            RazasTableSeeder::class,
+            MascotasTableSeeder::class,
         ]);
     }
 }

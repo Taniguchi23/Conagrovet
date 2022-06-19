@@ -83,6 +83,7 @@ Route::group(['middleware' => 'auth'], function (){
             Route::get('/animales/edit/{id}','edit')->name('animales.edit');
             Route::post('/animales/update/{id}','update')->name('animales.update');
             Route::get('/animales/delete/{id}','delete')->name('animales.delete');
+            Route::get('/animales/lista/{id}','lista');
         });
 
         Route::controller(RazaController::class)->group(function (){
@@ -106,7 +107,13 @@ Route::group(['middleware' => 'auth'], function (){
         });
     });
 
+    Route::group(['middleware' => 'isDoctor'], function (){
 
+    });
+
+    Route::group(['middleware' => 'isCliente'], function (){
+
+    });
 });
 
 

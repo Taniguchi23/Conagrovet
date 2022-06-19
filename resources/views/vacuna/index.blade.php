@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="pagetitle">
-        <h1>Productos</h1>
+        <h1>Vacunas</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
@@ -23,9 +23,9 @@
                                     <h5 class="card-title mt-2 ml-2">Lista de Productos</h5>
                                 </div>
 
-                                    <div class="mt-4 col-2">
-                                        <button class="btn btn-success btnCrear"  data-bs-toggle="modal" data-bs-target="#modalDatos">Crear Producto</button>
-                                    </div>
+                                <div class="mt-4 col-2">
+                                    <button class="btn btn-success btnCrear"  data-bs-toggle="modal" data-bs-target="#modalDatos">Crear Producto</button>
+                                </div>
 
                             </div>
                         </div>
@@ -99,7 +99,7 @@
                                     <label for="validationDefault04" class="form-label">Marca</label>
                                     <select class="form-select" id="marca" name="marca" required>
                                         @foreach($marcas as $marca)
-                                        <option value="{{$marca->id}}">{{$marca->nombre}}</option>
+                                            <option value="{{$marca->id}}">{{$marca->nombre}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -134,6 +134,7 @@
 @endsection
 @section('script')
     <script type="text/javascript">
+
         $('#tabla').on('click','.btnEditar',function (){
             let val_id = $(this).data('id');
             let val_url = '/productos/edit/'+val_id;
@@ -146,11 +147,9 @@
                 $('#cantidad').val(res.producto.cantidad);
                 $('#divEstado').css('display','block');
                 $('#estado').empty();
-                $('#estado').css('display','block')
                 $('#estado').append($('<option>',{value: 'E', text: 'Existe'}),$('<option>',{value: 'N', text: 'No existe'}),
-                $('<option>',{value: 'U', text: 'Usado'}));
-                $('#estado').val(res.res.producto.estado);
-                $('#marca').val(res.producto.marca_id);
+                    $('<option>',{value: 'U', text: 'Usado'}));
+                $('#estado  option[value = '+res.producto.estado+']').attr('selected',true);
                 $('#password').attr('required',false);
                 $('#telefono').val(res.telefono);
                 $('#direccion').val(res.direccion);
@@ -165,7 +164,6 @@
             $('#nombre').val('');
             $('#codigoFactura').val('');
             $('#cantidad').val('');
-            $('#marca option:first').prop('selected',true);
             $('#divEstado').css('display','none');
             $('#estado').empty();
             $('#estado').css('display','none')

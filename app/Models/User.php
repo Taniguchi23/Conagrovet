@@ -12,6 +12,10 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function mascotas(){
+        return $this->hasMany(Mascota::class);
+    }
+
     protected $fillable = [
         'name',
         'email',

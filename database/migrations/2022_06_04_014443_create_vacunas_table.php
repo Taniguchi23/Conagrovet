@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('animal_id')->references('id')->on('animales');
             $table->foreignId('producto_id')->references('id')->on('productos');
-            $table->integer('presentacion')->default(1);
+            $table->integer('presentacion')->default(10);
             $table->char('estado',1)->default('A')->comment('A:Activo | I:Inactivo');
             $table->timestamps();
         });

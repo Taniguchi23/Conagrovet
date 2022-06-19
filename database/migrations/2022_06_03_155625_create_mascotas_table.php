@@ -15,13 +15,12 @@ return new class extends Migration
     {
         Schema::create('mascotas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('animale_id')->references('id')->on('animales');
             $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('raza_id')->references('id')->on('razas');
             $table->string('nombre',50);
             $table->char('sexo',1)->default('M')->comment('M:Macho | H:Hembra');
             $table->dateTime('fecha_nacimiento');
-            $table->float('peso',2);
+            $table->float('peso',7,3);
             $table->string('color',50);
             $table->string('descripcion',200)->nullable();
             $table->char('esterilizado',1)->default('N')->comment('N:No | S:Si');
