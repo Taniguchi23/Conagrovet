@@ -317,6 +317,11 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{route('vacunas.index')}}">
+                        <i class="bi bi-circle"></i><span>Vacunas</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{route('animales.index')}}">
                         <i class="bi bi-circle"></i><span>Tipo de animal</span>
                     </a>
@@ -327,8 +332,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('vacunas.index')}}">
-                        <i class="bi bi-circle"></i><span>Vacunas</span>
+                    <a href="{{route('series.index')}}">
+                        <i class="bi bi-circle"></i><span>Stock Vacunas</span>
                     </a>
                 </li>
             </ul>

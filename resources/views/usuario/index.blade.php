@@ -103,10 +103,15 @@
                             <div class="col-md-6">
                                 <label for="validationDefault05" class="form-label">Dni</label>
                                 <input type="text" class="form-control" id="dni" name="dni" required>
+                                <span  class="form-label labelDni" style="display: none"></span>
                             </div>
                             <div class="col-md-6">
                                 <label for="validationDefault04" class="form-label">Role</label>
                                 <select class="form-select" id="role" name="role" required>
+                                    <option value="A">Administrador</option>
+                                    <option value="D">Doctor</option>
+                                    <option value="C">Cliente</option>
+                                    <option value="E">Empleado</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
@@ -150,19 +155,6 @@
 @endsection
 @section('script')
 <script type="text/javascript">
-        function role (dato){
-            let val_role = '';
-            if (dato === 'A' ){
-                val_role = 'Administrador';
-            }else if(dato === 'D'){
-                val_role = 'Doctor';
-            }else if(dato === 'E'){
-                val_role = 'Empleado';
-            }else {
-                val_role = 'Cliente';
-            }
-            return val_role;
-        }
 
      $('#tabla').on('click','.btnEditar',function (){
          let val_id = $(this).data('id');
@@ -175,8 +167,7 @@
              $('#lastname').val(res.lastname);
              $('#email').val(res.email);
              $('#dni').val(res.dni);
-             $('#role').empty();
-             $('#role').append($('<option>',{value: res.tipo, text: role(res.tipo)}))
+             $('#role').val(res.tipo);
              $('#divEstado').css('display','block');
              $('#estado').val(res.estado);
              $('#password').attr('required',false);
@@ -188,6 +179,25 @@
          });
      });
 
+    function validarDni(){
+        let val_dni = $('#dni').val();
+        if (val_dni.length() === 8){
+            let val_url = '/api/dni/'+val_dni;
+            $.get(val_url,function (res){
+                if(res==='ok'){
+                    return true;
+                }else {
+                    $('.labelDni').css('display','block').val('Este dni no está disponible');
+                    return false;
+                }
+            });
+        }else {
+            $('.labelDni').css('display','block').val('El dni debe tener 8 números');
+            return false;
+        }
+
+    }
+
         $('.btnCrear').click(function (){
             let val_tipo = $(this).data('id');
             let val_url_store = '/usuarios/store';
@@ -197,8 +207,7 @@
             $('#lastname').val('');
             $('#email').val('');
             $('#dni').val('');
-            $('#role').empty();
-            $('#role').append($('<option>',{value: val_tipo, text: role(val_tipo)}))
+            $('#role option:first').prop('selected',true);
             $('#divEstado').css('display','none');
             $('#sexo option:first').prop('selected',true);
             $('#password').attr('required',true);

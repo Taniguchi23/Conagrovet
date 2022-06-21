@@ -99,7 +99,13 @@ Route::group(['middleware' => 'auth'], function (){
             Route::get('/vacunas/delete/{id}','delete')->name('vacunas.delete');
         });
 
-
+        Route::controller(VacunaController::class)->group(function (){
+            Route::get('/series','index')->name('series.index');
+            Route::post('/series/store','store')->name('series.store');
+            Route::get('/series/edit/{id}','edit')->name('series.edit');
+            Route::post('/series/update/{id}','update')->name('series.update');
+            Route::get('/series/delete/{id}','delete')->name('series.delete');
+        });
     });
 
     Route::group(['middleware' => 'isDoctor'], function (){

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Consulta;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Response;
 
@@ -37,5 +38,15 @@ class AdminController extends Controller
         }
         $consulta->save();
         return redirect()->route('admin.consultas');
+    }
+
+    public function verificarDni($dni){
+        $user = User::where('dni',$dni)->first();
+        if (empty($user)){
+            $response = 'ok';
+        }else{
+            $response = 'error';
+        }
+        return Response::json($response);
     }
 }
