@@ -37,8 +37,6 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Marca</th>
-                                <th scope="col">Código</th>
-                                <th scope="col">Cantidad</th>
                                 <th scope="col">Estado</th>
                                 <th scope="col">Registrado</th>
                                 <th scope="col">Actualizado</th>
@@ -51,14 +49,12 @@
                                     <th scope="row">{{$ids+1}}</th>
                                     <td>{{$producto->nombre}}</td>
                                     <td>{{$producto->marca->nombre}}</td>
-                                    <td>{{$producto->codigo_factura}}</td>
-                                    <td>{{$producto->cantidad}}</td>
-                                    <td><span class="rounded-3 p-1 bg-{{Util::colorEstadoProducto($producto->estado)}} text-white">{{Util::estadoProducto($producto->estado)}}</span></td>
+                                    <td><span class="rounded-3 p-1 bg-{{Util::colorEstado($producto->estado)}} text-white">{{Util::stringEstado($producto->estado)}}</span></td>
                                     <td>{{Util::formatoFecha($producto->created_at)}}</td>
                                     <td>{{Util::formatoFecha($producto->updated_at)}}</td>
                                     <td>
                                         <button type="button" data-bs-target="#modalDatos" data-bs-toggle="modal" class="btn btn-m text-primary btnEditar" data-id="{{$producto->id}}"><i class="bi bi-pencil-square"></i></button>
-                                        <a class="text-danger" href="{{route('usuarios.delete',$producto->id)}}" onclick="return confirm ('¿Está seguro de eliminar este registro')"><i class="bi bi-trash-fill"></i></a>
+                                        <a class="text-danger" href="{{route('productos.delete',$producto->id)}}" onclick="return confirm ('¿Está seguro de eliminar este registro')"><i class="bi bi-trash-fill"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -92,20 +88,12 @@
                                     <input type="text" class="form-control" id="nombre"  name="nombre" value="" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="validationDefault02" class="form-label">Código de factura</label>
-                                    <input type="text" class="form-control" id="codigoFactura" name="codigoFactura" required>
-                                </div>
-                                <div class="col-md-4">
                                     <label for="validationDefault04" class="form-label">Marca</label>
                                     <select class="form-select" id="marca" name="marca" required>
                                         @foreach($marcas as $marca)
                                         <option value="{{$marca->id}}">{{$marca->nombre}}</option>
                                         @endforeach
                                     </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="validationDefault05" class="form-label">Cantidad</label>
-                                    <input type="number" class="form-control" id="cantidad" name="cantidad" min="1" step="0.1" required>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="validationDefault04" class="form-label">Unidad</label>
@@ -117,7 +105,13 @@
                                 <div id="divEstado" class="col-md-6" style="display: none">
                                     <label for="validationDefault05" class="form-label">Estado</label>
                                     <select class="form-select" name="estado" id="estado">
+                                        <option value="A">Activo</option>
+                                        <option value="I">Inactivo</option>
                                     </select>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="descripcion" name="descripcion" style="height: 100px;"></textarea>
+                                    <label for="floatingTextarea">Descripción</label>
                                 </div>
                             </div>
                         </div>
@@ -142,15 +136,12 @@
                 $('#formulario').attr('action',val_url_update);
                 $('#modalTitulo').html('Editar Producto');
                 $('#nombre').val(res.producto.nombre);
-                $('#codigoFactura').val(res.producto.codigo_factura);
-                $('#cantidad').val(res.producto.cantidad);
                 $('#divEstado').css('display','block');
-                $('#estado').empty();
                 $('#estado').css('display','block')
-                $('#estado').append($('<option>',{value: 'E', text: 'Existe'}),$('<option>',{value: 'N', text: 'No existe'}),
-                $('<option>',{value: 'U', text: 'Usado'}));
-                $('#estado').val(res.res.producto.estado);
+                $('#estado').val(res.producto.estado);
+                $('#descripcion').val(res.producto.descripcion);
                 $('#marca').val(res.producto.marca_id);
+                $('#unidad').val(res.producto.unidad);
                 $('#password').attr('required',false);
                 $('#telefono').val(res.telefono);
                 $('#direccion').val(res.direccion);
@@ -163,11 +154,10 @@
             $('#formulario').attr('action',val_url_store);
             $('#modalTitulo').html('Producto Nuevo');
             $('#nombre').val('');
-            $('#codigoFactura').val('');
-            $('#cantidad').val('');
+            $('#descripcion').val('');
             $('#marca option:first').prop('selected',true);
+            $('#unidad option:first').prop('selected',true);
             $('#divEstado').css('display','none');
-            $('#estado').empty();
             $('#estado').css('display','none')
             $('.btnGuardar').html('Guardar');
             $('#modalDatos').modal('show');

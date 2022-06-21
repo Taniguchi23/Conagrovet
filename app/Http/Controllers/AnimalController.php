@@ -9,7 +9,7 @@ use Response;
 class AnimalController extends Controller
 {
     public function index(){
-        $animales = Animal::all();
+        $animales = Animal::orderBy('estado','ASC')->get();
         return view('animales.index', compact('animales'));
     }
 

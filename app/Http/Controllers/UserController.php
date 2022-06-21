@@ -33,6 +33,20 @@ class UserController extends Controller
         $usuario->name = $request->name;
         $usuario->lastname = $request->lastname;
         $usuario->email = $request->email;
+        $usuario->sexo = $request->sexo;
+        if ($request->sexo === 'H'){
+            if ($request->role === 'C'){
+                $usuario->imagen = 'public/avatar/cliente_hombre';
+            }else{
+                $usuario->image = 'public/avatar/doctor_hombre';
+            }
+        }else{
+            if ($request->role === 'C'){
+                $usuario->imagen = 'public/avatar/cliente_mujer';
+            }else{
+                $usuario->image = 'public/avatar/doctor_mujer';
+            }
+        }
         $usuario->password = Hash::make($request->password);
         $usuario->telefono = $request->telefono;
         $usuario->tipo = $request->role;
@@ -59,6 +73,7 @@ class UserController extends Controller
         $usuario->telefono = $request->telefono;
         $usuario->tipo = $request->role;
         $usuario->dni = $request->dni;
+        $usuario->sexo =$request->sexo;
         $usuario->direccion = $request->direccion;
         $usuario->estado = $request->estado;
         $usuario->save();

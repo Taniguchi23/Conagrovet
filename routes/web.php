@@ -11,7 +11,6 @@ use App\Http\Controllers\RazaController;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\VacunaController;
 use App\Http\Controllers\WebController;
-use App\Http\Controllers\BotmanController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PerroController;
 
@@ -23,10 +22,8 @@ Route::controller(WebController::class)->group(function (){
     Route::get('/nosotros','familia')->name('web.nosotros');
     Route::get('/login','autentificacions');
     Route::post('/consultas','consultas');
-//    Route::post('/contacto','contactos');
 });
-//Route::get('/chat',[WebController::class,'bot']);
-Route::match(['get','post'],'/botman',[BotManController::class,'handle']);
+
 
 Auth::routes();
 
@@ -102,9 +99,7 @@ Route::group(['middleware' => 'auth'], function (){
             Route::get('/vacunas/delete/{id}','delete')->name('vacunas.delete');
         });
 
-        Route::controller(AnimalController::class)->group(function (){
-           Route::get('/animales','index')->name('animales.index');
-        });
+
     });
 
     Route::group(['middleware' => 'isDoctor'], function (){

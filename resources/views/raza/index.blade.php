@@ -37,6 +37,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Tipo</th>
                                 <th scope="col">Nombre</th>
+                                <th scope="col">Imagen</th>
                                 <th scope="col">Orden</th>
                                 <th scope="col">Estado</th>
                                 <th scope="col">Acciones</th>
@@ -48,6 +49,7 @@
                                     <th scope="row">{{$ids+1}}</th>
                                     <td>{{$raza->animal->nombre}}</td>
                                     <td>{{$raza->nombre}}</td>
+                                    <td><img src="{{Storage::url($raza->imagen)}}" width="50px" alt=""></td>
                                     <td>{{$raza->presentacion}}</td>
                                     <td><span class="rounded-3 p-1 bg-{{Util::colorEstado($raza->estado)}} text-white">{{Util::stringEstado($raza->estado)}}</span></td>
 
@@ -77,7 +79,7 @@
                     <h5 class="modal-title" id="modalTitulo">Nueva Raza</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{route('razas.store')}}" method="post" id="formulario">
+                <form action="{{route('razas.store')}}" method="post" id="formulario" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="card-body">
@@ -86,7 +88,7 @@
                                     <label for="validationDefault01" class="form-label">Raza</label>
                                     <input type="text" class="form-control" id="nombre"  name="nombre" value="" required>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label for="validationDefault04" class="form-label">Tipo de animal</label>
                                     <select class="form-select" id="animal_id" name="animal_id" required>
                                         @foreach($animales as $animal)
@@ -94,15 +96,28 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="validationDefault05" class="form-label">Presentación</label>
+                                <div class="col-md-6">
+                                    <label for="validationDefault05" class="form-label">Orden de Visualización</label>
                                     <input type="number" class="form-control" id="presentacion" name="presentacion" min="1" >
                                 </div>
 
-                                <div id="divEstado" class="col-md-4" style="display: none">
+                                <div id="divEstado" class="col-md-6" style="display: none">
                                     <label for="validationDefault05" class="form-label">Estado</label>
                                     <select class="form-select" name="estado" id="estado">
+                                        <option value="A">Activo</option>
+                                        <option value="I">Inactivo</option>
                                     </select>
+                                </div>
+                                <div class="row mb-3 mt-3" id="divImagen" style="display: none">
+                                    <div class="col-sm-10 text-center">
+                                        <img id="avatar" width="120px" src="" alt="">
+                                    </div>
+                                </div>
+                                <div class="row mb-3 mt-3">
+                                    <label for="inputNumber" class="col-sm-2 col-form-label">Foto</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="file" id="imagen" name="imagen">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -119,7 +134,6 @@
 @endsection
 @section('script')
     <script type="text/javascript">
-
         $('#tabla').on('click','.btnEditar',function (){
             let val_id = $(this).data('id');
             let val_url = '/razas/edit/'+val_id;
@@ -129,25 +143,25 @@
                 $('#modalTitulo').html('Editar Raza');
                 $('#nombre').val(res.raza.nombre);
                 $('#presentacion').val(res.raza.presentacion);
-
+                if(res.raza.imagen != null){
+                    $('#divImagen').css('display','block');
+                    $('#avatar').attr('src',res.imagen);
+                }
                 $('#divEstado').css('display','block');
-                $('#estado').empty();
-                $('#estado').append($('<option>',{value: 'A', text: 'Activo'}),$('<option>',{value: 'I', text: 'Inactivo'}));
-                $('#estado  option[value = '+res.raza.estado+']').attr('selected',true);
+                $('#estado').val(res.raza.estado);
+                $('.btnGuardar').html('Editar');
                 $('#modalDatos').modal('show');
             });
         });
 
         $('.btnCrear').click(function (){
             let val_url_store = '/razas/store';
-
             $('#formulario').attr('action',val_url_store);
             $('#modalTitulo').html('Nueva Raza');
             $('#nombre').val('');
             $('#presentacion').val('');
             $('#divEstado').css('display','none');
-            $('#estado').empty();
-            $('#estado').css('display','none')
+            $('#divImagen').css('display','none');
             $('.btnGuardar').html('Guardar');
             $('#modalDatos').modal('show');
         });

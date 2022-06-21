@@ -23,9 +23,8 @@ class ProductoController extends Controller
         $producto = new Producto;
         $producto->marca_id = $request->marca;
         $producto->nombre = $request->nombre;
-        $producto->codigo_factura = $request->codigoFactura;
-        $producto->cantidad = $request->cantidad;
         $producto->unidad = $request->unidad;
+        $producto->descripcion = $request->descripcion;
         $producto->save();
        return redirect()->route('productos.index');
     }
@@ -35,7 +34,6 @@ class ProductoController extends Controller
         $marcas = Marca::all();
         $datos = [
             'producto' => $producto,
-            'marca' => $marcas,
         ];
 
         return Response::json($datos);
@@ -45,13 +43,22 @@ class ProductoController extends Controller
         $producto = Producto::find($id);
         $producto->marca_id = $request->marca;
         $producto->nombre = $request->nombre;
-        $producto->codigo_factura = $request->codigoFactura;
-        $producto->cantidad = $request->cantidad;
         $producto->unidad = $request->unidad;
         $producto->estado = $request->estado;
+        $producto->descripcion = $request->descripcion;
         $producto->save();
         return redirect()->route('productos.index');
     }
 
+    public function delete($id){
+        $producto = Producto::find($id);
+        if ($producto->estado === 'I'){
+            $producto->delete();
+        }else{
+            $producto->estado = 'I';
+            $producto->save();
+        }
+        return redirect()->route('productos.index');
+    }
 
 }

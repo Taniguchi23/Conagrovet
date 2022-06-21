@@ -104,14 +104,12 @@
             let val_url = '/marcas/edit/'+val_id;
             let val_url_update = '/marcas/update/'+val_id;
             $.get(val_url, function (res){
-                let imagen = res.imagen;
-                console.log(res);
                 $('#formulario').attr('action',val_url_update);
                 $('#modalTitulo').html('Editar Marca');
                 $('#name').val(res.marca.nombre);
                 $('#imagenLabel').css('display','none')
                 $('#imagenVieja').css('display','block');
-                $('#imagenVieja').attr('src',imagen);
+                $('#imagenVieja').attr('src',res.imagen);
                 $('#imagen').attr('required',false);
                 $('.btnGuardar').html('Editar');
                 $('#modalDatos').modal('show');

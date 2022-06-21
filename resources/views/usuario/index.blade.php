@@ -121,9 +121,18 @@
                                 <label for="validationDefault05" class="form-label">Direccion</label>
                                 <input type="text" class="form-control" id="direccion" name="direccion" required>
                             </div>
+                            <div class="col-md-6">
+                                <label for="validationDefault04" class="form-label">Sexo</label>
+                                <select class="form-select" id="sexo" name="sexo" required>
+                                    <option value="H">Hombre</option>
+                                    <option value="M">Mujer</option>
+                                </select>
+                            </div>
                             <div id="divEstado" class="col-md-6" style="display: none">
                                 <label for="validationDefault05" class="form-label">Estado</label>
                                 <select class="form-select" name="estado" id="estado">
+                                    <option value="A">Activo</option>
+                                    <option value="I">Inactivo</option>
                                 </select>
                             </div>
                         </div>
@@ -169,11 +178,10 @@
              $('#role').empty();
              $('#role').append($('<option>',{value: res.tipo, text: role(res.tipo)}))
              $('#divEstado').css('display','block');
-             $('#estado').empty();
-             $('#estado').append($('<option>',{value: 'A', text: 'Activo'}),$('<option>',{value: 'I', text: 'Inactivo'}));
-             $('#estado  option[value = '+res.estado+']').attr('selected',true);
+             $('#estado').val(res.estado);
              $('#password').attr('required',false);
              $('#telefono').val(res.telefono);
+             $('#sexo').val(res.sexo);
              $('#direccion').val(res.direccion);
              $('.btnGuardar').html('Editar');
              $('#modalDatos').modal('show');
@@ -192,8 +200,7 @@
             $('#role').empty();
             $('#role').append($('<option>',{value: val_tipo, text: role(val_tipo)}))
             $('#divEstado').css('display','none');
-            $('#estado').empty();
-            $('#estado').css('display','none')
+            $('#sexo option:first').prop('selected',true);
             $('#password').attr('required',true);
             $('#telefono').val('');
             $('#direccion').val('');

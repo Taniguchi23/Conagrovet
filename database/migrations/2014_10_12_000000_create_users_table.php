@@ -22,6 +22,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('dni',8)->nullable();
+            $table->char('sexo',1)->comment('H:Hombre | M:Mujer');
             $table->char('tipo',1)->default('C')->comment('A:Administrador | C: Cliente | E:Empleado | D:Doctor');
             $table->string('direccion',200)->nullable();
             $table->string('imagen',65)->nullable();

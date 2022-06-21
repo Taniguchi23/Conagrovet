@@ -73,7 +73,8 @@
         };
     </script>
 
-    <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+
+    <!--script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script-->
     <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <a href="/chat" class="float" target="_blank">
         <i class="fa fa-whatsapp my-float"></i>
@@ -106,7 +107,24 @@
         <p>Desarrollado por grupo 9</p>
     </div>
 </footer>
-
+<script>
+    window.addEventListener('mouseover', initLandbot, { once: true });
+    window.addEventListener('touchstart', initLandbot, { once: true });
+    var myLandbot;
+    function initLandbot() {
+        if (!myLandbot) {
+            var s = document.createElement('script');s.type = 'text/javascript';s.async = true;
+            s.addEventListener('load', function() {
+                var myLandbot = new Landbot.Livechat({
+                    configUrl: 'https://landbot.site/v3/H-1289874-9DYIL9WP119BC6SB/index.json',
+                });
+            });
+            s.src = 'https://cdn.landbot.io/landbot-3/landbot-3.0.0.js';
+            var x = document.getElementsByTagName('script')[0];
+            x.parentNode.insertBefore(s, x);
+        }
+    }
+</script>
 <script src="/assets/js/jquery-3.6.0.min.js"></script>
 <!--  Toastr-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

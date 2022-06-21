@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             SeriesTableSeeder::class,
             AnimalTableSeeder::class,
             RazasTableSeeder::class,
+            VacunasTableSeeder::class,
             MascotasTableSeeder::class,
         ]);
     }

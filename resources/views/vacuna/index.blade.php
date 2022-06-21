@@ -6,7 +6,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
                 <li class="breadcrumb-item">Registros</li>
-                <li class="breadcrumb-item active">Productos</li>
+                <li class="breadcrumb-item active">Vacunas</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -20,11 +20,11 @@
                         <div class="col-md-12">
                             <div class="row justify-content-between">
                                 <div class="col-4">
-                                    <h5 class="card-title mt-2 ml-2">Lista de Productos</h5>
+                                    <h5 class="card-title mt-2 ml-2">Lista de Vacunas</h5>
                                 </div>
 
                                 <div class="mt-4 col-2">
-                                    <button class="btn btn-success btnCrear"  data-bs-toggle="modal" data-bs-target="#modalDatos">Crear Producto</button>
+                                    <button class="btn btn-success btnCrear"  data-bs-toggle="modal" data-bs-target="#modalDatos">Crear Vacuna</button>
                                 </div>
 
                             </div>
@@ -35,30 +35,24 @@
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Marca</th>
-                                <th scope="col">Código</th>
-                                <th scope="col">Cantidad</th>
+                                <th scope="col">Animal</th>
+                                <th scope="col">Producto</th>
+                                <th scope="col">Orden</th>
                                 <th scope="col">Estado</th>
-                                <th scope="col">Registrado</th>
-                                <th scope="col">Actualizado</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($productos as $ids => $producto)
+                            @foreach($vacunas as $ids => $vacuna)
                                 <tr>
                                     <th scope="row">{{$ids+1}}</th>
-                                    <td>{{$producto->nombre}}</td>
-                                    <td>{{$producto->marca->nombre}}</td>
-                                    <td>{{$producto->codigo_factura}}</td>
-                                    <td>{{$producto->cantidad}}</td>
-                                    <td><span class="rounded-3 p-1 bg-{{Util::colorEstadoProducto($producto->estado)}} text-white">{{Util::estadoProducto($producto->estado)}}</span></td>
-                                    <td>{{Util::formatoFecha($producto->created_at)}}</td>
-                                    <td>{{Util::formatoFecha($producto->updated_at)}}</td>
+                                    <td>{{$vacuna->animal->nombre}}</td>
+                                    <td>{{$vacuna->producto->nombre}}</td>
+                                    <td>{{$vacuna->presentacion}}</td>
+                                    <td><span class="rounded-3 p-1 bg-{{Util::colorEstado($vacuna->estado)}} text-white">{{Util::stringEstado($vacuna->estado)}}</span></td>
                                     <td>
-                                        <button type="button" data-bs-target="#modalDatos" data-bs-toggle="modal" class="btn btn-m text-primary btnEditar" data-id="{{$producto->id}}"><i class="bi bi-pencil-square"></i></button>
-                                        <a class="text-danger" href="{{route('usuarios.delete',$producto->id)}}" onclick="return confirm ('¿Está seguro de eliminar este registro')"><i class="bi bi-trash-fill"></i></a>
+                                        <button type="button" data-bs-target="#modalDatos" data-bs-toggle="modal" class="btn btn-m text-primary btnEditar" data-id="{{$vacuna->id}}"><i class="bi bi-pencil-square"></i></button>
+                                        <a class="text-danger" href="{{route('vacunas.delete',$vacuna->id)}}" onclick="return confirm ('¿Está seguro de eliminar este registro')"><i class="bi bi-trash-fill"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -79,44 +73,40 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitulo">Producto Nuevo</h5>
+                    <h5 class="modal-title" id="modalTitulo">Nueva Vacuna</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{route('productos.store')}}" method="post" id="formulario">
+                <form action="{{route('vacunas.store')}}" method="post" id="formulario">
                     @csrf
                     <div class="modal-body">
                         <div class="card-body">
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <label for="validationDefault01" class="form-label">Producto</label>
-                                    <input type="text" class="form-control" id="nombre"  name="nombre" value="" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="validationDefault02" class="form-label">Código de factura</label>
-                                    <input type="text" class="form-control" id="codigoFactura" name="codigoFactura" required>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="validationDefault04" class="form-label">Marca</label>
-                                    <select class="form-select" id="marca" name="marca" required>
-                                        @foreach($marcas as $marca)
-                                            <option value="{{$marca->id}}">{{$marca->nombre}}</option>
+                                    <label for="validationDefault04" class="form-label">Animal</label>
+                                    <select class="form-select" id="animal_id" name="animal_id" required>
+                                        @foreach($animales as $animal)
+                                            <option value="{{$animal->id}}">{{$animal->nombre}}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="validationDefault05" class="form-label">Cantidad</label>
-                                    <input type="number" class="form-control" id="cantidad" name="cantidad" min="1" step="0.1" required>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="validationDefault04" class="form-label">Unidad</label>
-                                    <select class="form-select" id="unidad" name="unidad" required>
-                                        <option value="und">unidad</option>
-                                        <option value="ml">mg</option>
+                                <div class="col-md-6">
+                                    <label for="validationDefault04" class="form-label">Producto</label>
+                                    <select class="form-select" id="producto_id" name="producto_id" required>
+                                        @foreach($productos as $producto)
+                                            <option value="{{$producto->id}}">{{$producto->nombre}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
+                                <div class="col-md-6">
+                                    <label for="validationDefault05" class="form-label">Orden de Presentación</label>
+                                    <input type="number" class="form-control" id="presentacion" name="presentacion" min="1" >
+                                </div>
+
                                 <div id="divEstado" class="col-md-6" style="display: none">
                                     <label for="validationDefault05" class="form-label">Estado</label>
                                     <select class="form-select" name="estado" id="estado">
+                                        <option value="A">Activo</option>
+                                        <option value="I">Inactivo</option>
                                     </select>
                                 </div>
                             </div>
@@ -137,36 +127,29 @@
 
         $('#tabla').on('click','.btnEditar',function (){
             let val_id = $(this).data('id');
-            let val_url = '/productos/edit/'+val_id;
-            let val_url_update = '/productos/update/'+val_id;
+            let val_url = '/vacunas/edit/'+val_id;
+            let val_url_update = '/vacunas/update/'+val_id;
             $.get(val_url, function (res){
+                console.log(res);
                 $('#formulario').attr('action',val_url_update);
                 $('#modalTitulo').html('Editar Producto');
-                $('#nombre').val(res.producto.nombre);
-                $('#codigoFactura').val(res.producto.codigo_factura);
-                $('#cantidad').val(res.producto.cantidad);
+                $('#animal_id').val(res.animal_id);
+                $('#producto_id').val(res.producto_id);
+                $('#presentacion').val(res.presentacion);
                 $('#divEstado').css('display','block');
-                $('#estado').empty();
-                $('#estado').append($('<option>',{value: 'E', text: 'Existe'}),$('<option>',{value: 'N', text: 'No existe'}),
-                    $('<option>',{value: 'U', text: 'Usado'}));
-                $('#estado  option[value = '+res.producto.estado+']').attr('selected',true);
-                $('#password').attr('required',false);
-                $('#telefono').val(res.telefono);
-                $('#direccion').val(res.direccion);
+                $('#estado').val(res.estado);
+                $('.btnGuardar').html('Editar');
                 $('#modalDatos').modal('show');
             });
         });
 
         $('.btnCrear').click(function (){
-            let val_url_store = '/productos/store';
+            let val_url_store = '/vacunas/store';
             $('#formulario').attr('action',val_url_store);
             $('#modalTitulo').html('Producto Nuevo');
-            $('#nombre').val('');
-            $('#codigoFactura').val('');
-            $('#cantidad').val('');
+            $('#animal_id option:first').prop('selected',true);
+            $('#producto_id option:first').prop('selected',true);
             $('#divEstado').css('display','none');
-            $('#estado').empty();
-            $('#estado').css('display','none')
             $('.btnGuardar').html('Guardar');
             $('#modalDatos').modal('show');
         });

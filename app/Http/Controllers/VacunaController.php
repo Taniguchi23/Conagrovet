@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Animal;
+use App\Models\Producto;
 use App\Models\Vacuna;
 use Illuminate\Http\Request;
 use Response;
@@ -9,8 +11,15 @@ use Response;
 class VacunaController extends Controller
 {
     public function index(){
-        $vacunas = Vacuna::where('estado','A')->get();
-        return view('vacuna.index',compact('vacunas'));
+        $vacunas = Vacuna::orderBY('estado','ASC')->get();
+        $animales = Animal::where('estado','A')->get();
+        $productos = Producto::where('estado','A')->get();
+        $datos = [
+            'vacunas' => $vacunas,
+            'animales' => $animales,
+            'productos' => $productos,
+        ];
+        return view('vacuna.index',$datos);
     }
 
     public function store (Request $request){
@@ -19,15 +28,13 @@ class VacunaController extends Controller
         $vacuna->producto_id = $request->producto_id;
         $vacuna->presentacion = $request->presentacion;
         $vacuna->save();
-        return redirect()->route('vacuna.index');
+        return redirect()->route('vacunas.index');
     }
 
     public function  edit($id ){
         $vacuna = Vacuna::find($id);
-        $datos = [
-            'vacunas' => $vacuna,
-        ];
-        return Response::json($datos);
+
+        return Response::json($vacuna);
     }
 
     public function update ($id , Request$request){
@@ -37,7 +44,7 @@ class VacunaController extends Controller
         $vacuna->presentacion = $request->presentacion;
         $vacuna->estado = $request->estado;
         $vacuna->save();
-        return redirect()->route('vacuna.index');
+        return redirect()->route('vacunas.index');
     }
     public function delete($id){
         $vacuna = Vacuna::find($id);
@@ -47,6 +54,6 @@ class VacunaController extends Controller
             $vacuna->estado = 'I';
             $vacuna->save();
         }
-        return redirect()->route('vacuna.index');
+        return redirect()->route('vacunas.index');
     }
 }

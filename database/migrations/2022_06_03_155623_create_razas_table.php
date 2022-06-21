@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreignId('animal_id')->references('id')->on('animales');
             $table->string('nombre',50);
             $table->string('imagen',65)->nullable();
-            $table->integer('presentacion')->nullable();
+            $table->integer('presentacion')->default(10);
             $table->char('estado',1)->default('A')->comment('A:activo|I:inactivo');
             $table->timestamps();
         });

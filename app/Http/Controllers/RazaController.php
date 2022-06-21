@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Animal;
 use App\Models\Raza;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Response;
 
 class RazaController extends Controller
@@ -26,16 +27,19 @@ class RazaController extends Controller
         if (isset($request->presentacion)){
             $raza->presentacion = $request->presentacion;
         }
+        if (isset($request->imagen)){
+            $raza->imagen = $request->file('imagen')->store('public/raza');
+        }
         $raza->save();
         return redirect()->route('razas.index');
     }
 
     public function edit($id){
         $raza = Raza::find($id);
-        $animales = Animal::all();
+        $imagen = Storage::url($raza->imagen);
         $datos = [
             'raza' => $raza,
-            'animales' => $animales,
+            'imagen' => $imagen,
         ];
         return Response::json($datos);
     }
@@ -46,6 +50,15 @@ class RazaController extends Controller
         $raza->nombre = $request->nombre;
         $raza->presentacion = $request->presentacion;
         $raza->estado = $request->estado;
+        if (isset($request->imagen)){
+            if (!empty($raza->imagen)){
+                if (Storage::exists($raza->imagen)){
+                    Storage::delete($raza->imagen);
+                }
+            }
+
+            $raza->imagen = $request->file('imagen')->store('public/raza');
+        }
         $raza->save();
         return redirect()->route('razas.index');
     }
@@ -53,6 +66,9 @@ class RazaController extends Controller
     public function delete ($id){
         $raza = Raza::find($id);
         if ($raza->estado === 'I'){
+            if (Storage::exists($raza->imagen)){
+                Storage::delete($raza->imagen);
+            }
             $raza->delete();
         }else{
             $raza->estado = 'I';

@@ -84,6 +84,8 @@
                                 <div id="divEstado" class="col-md-6" style="display: none">
                                     <label for="validationDefault05" class="form-label">Estado</label>
                                     <select class="form-select" name="estado" id="estado">
+                                        <option value="A">Activo</option>
+                                        <option value="I">Inactivo</option>
                                     </select>
                                 </div>
                             </div>
@@ -109,11 +111,10 @@
             $.get(val_url, function (res){
                 $('#formulario').attr('action',val_url_update);
                 $('#modalTitulo').html('Editar tipo de animales');
-                $('#tipo').val(res.tipo);
+                $('#tipo').val(res.nombre);
                 $('#divEstado').css('display','block');
-                $('#estado').empty();
-                $('#estado').append($('<option>',{value: 'A', text: 'Activo'}),$('<option>',{value: 'I', text: 'Inactivo'}));
-                $('#estado  option[value = '+res.estado+']').attr('selected',true);
+                $('#estado').val(res.estado);
+                $('.btnGuardar').html('Editar');
                 $('#modalDatos').modal('show');
             });
         });
@@ -123,8 +124,7 @@
             $('#formulario').attr('action',val_url_store);
             $('#modalTitulo').html('Nuevo tipo de animal');
             $('#tipo').val('');
-            $('#estado').empty();
-            $('#estado').css('display','none')
+            $('#divEstado').css('display','none')
             $('.btnGuardar').html('Guardar');
             $('#modalDatos').modal('show');
         });
