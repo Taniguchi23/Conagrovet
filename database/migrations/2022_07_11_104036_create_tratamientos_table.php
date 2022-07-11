@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('series', function (Blueprint $table) {
+        Schema::create('tratamientos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('producto_id')->references('id')->on('productos');
-            $table->string('codigo_factura',50);
+            $table->foreignId('file_id')->references('id')->on('files');
+            $table->foreignId('vacuna_id')->references('id')->on('vacunas');
             $table->float('cantidad',8,0);
-            $table->char('estado')->default('N')->comment('N: Nuevo | R: Usado | T: Terminado');
+            $table->string('codigo')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('series');
+        Schema::dropIfExists('tratamientos');
     }
 };

@@ -74,6 +74,19 @@ class UserController extends Controller
         $usuario->tipo = $request->role;
         $usuario->dni = $request->dni;
         $usuario->sexo =$request->sexo;
+        if ($request->sexo === 'H'){
+            if ($request->role === 'C'){
+                $usuario->imagen = 'public/avatar/cliente_hombre';
+            }else{
+                $usuario->image = 'public/avatar/doctor_hombre';
+            }
+        }else{
+            if ($request->role === 'C'){
+                $usuario->imagen = 'public/avatar/cliente_mujer';
+            }else{
+                $usuario->image = 'public/avatar/doctor_mujer';
+            }
+        }
         $usuario->direccion = $request->direccion;
         $usuario->estado = $request->estado;
         $usuario->save();

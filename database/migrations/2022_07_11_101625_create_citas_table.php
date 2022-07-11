@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('series', function (Blueprint $table) {
+        Schema::create('citas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('producto_id')->references('id')->on('productos');
-            $table->string('codigo_factura',50);
-            $table->float('cantidad',8,0);
-            $table->char('estado')->default('N')->comment('N: Nuevo | R: Usado | T: Terminado');
+            $table->foreignId('mascota_id')->references('id')->on('mascotas');
+            $table->string('nombre');
+            $table->text('descripcion')->nullable();
+            $table->dateTime('fecha_programacion');
+            $table->char('estado',1)->default('A')->comment('A: Activo| D: Reprogramado | F: Finalizado |  R: Rechazado');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('series');
+        Schema::dropIfExists('citas');
     }
 };

@@ -17,9 +17,9 @@ use App\Http\Controllers\PerroController;
 Route::controller(WebController::class)->group(function (){
     Route::get('/','index')->name('web.index');
     Route::get('/quienes','quienes')->name('web.quienes');
-    Route::get('contacto','contactos')->name('web.contactos');
+    Route::get('/contacto','contactos')->name('web.contactos');
     Route::get('/servicio','servicios')->name('web.servicios');
-    Route::get('/nosotros','familia')->name('web.nosotros');
+    Route::get('/nosotros','quienes')->name('web.nosotros');
     Route::get('/login','autentificacions');
     Route::post('/consultas','consultas');
 });
@@ -31,8 +31,14 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::controller(DoctorController::class)->group(function (){
-        Route::get('/citas','index')->name('citas.index');
-        Route::get('/citas/atender','atender')->name('citas.atender');
+        Route::get('/pacientes/citas','index')->name('pacientes.citas');
+        Route::get('/pacientes/atender/{id}','atender')->name('pacientes.atender');
+        Route::get('/pacientes/historial','historial')->name('pacientes.historial');
+        Route::get('/pacientes/historial/ver/{id}','ver')->name('pacientes.ver');
+        Route::post('/pacientes/citas/store','store')->name('citas.store');
+        Route::get('/pacientes/citas/edit/{id}','edit')->name('citas.edit');
+        Route::post('/pacientes/citas/update/{id}','update')->name('citas.update');
+        Route::get('/pacientes/citas/listamascotas/{email}','listaMascota');
     });
 
     Route::controller(PerroController::class)->group(function (){
@@ -113,6 +119,10 @@ Route::group(['middleware' => 'auth'], function (){
     });
 
     Route::group(['middleware' => 'isCliente'], function (){
+        Route::controller(PerroController::class)->group(function (){
+            Route::get('/mascotas','lista')->name('mascotas.lista');
+            Route::get('/mascotas/perfil/{id}', 'perfil')->name('mascotas.perfil');
+        });
 
     });
 });

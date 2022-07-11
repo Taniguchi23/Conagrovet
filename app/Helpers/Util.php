@@ -72,6 +72,16 @@ class Util {
         }
         return $color;
     }
+
+    public static function colorMascota($estado){
+        if ($estado === 'V'){
+            $color = 'success';
+        }else{
+            $color = 'warning';
+        }
+        return $color;
+    }
+
     public static function colorConsulta($estado){
         if ($estado === 'P'){
             $color = 'warning';
@@ -89,6 +99,17 @@ class Util {
         }
         return $texto;
     }
+
+    public static function stringMascota($estado){
+        if ($estado === 'V'){
+            $texto = 'Activo';
+        }else{
+            $texto = 'Inactivo';
+        }
+        return $texto;
+    }
+
+
     public static function consultaEstado($estado){
         if ($estado === 'P'){
             $texto = 'Pendiente';
@@ -96,6 +117,50 @@ class Util {
             $texto = 'Revisado';
         }
         return $texto;
+    }
+
+    public static function stringSexo($sexo){
+        if ($sexo === 'M'){
+            $texto = 'Macho';
+        }else{
+            $texto = 'Hembra';
+        }
+        return $texto;
+    }
+
+    public static function stringEsteril($esteril){
+        if ($esteril === 'S'){
+            $texto = 'Si';
+        }else{
+            $texto = 'No';
+        }
+        return $texto;
+    }
+
+    public static function estadoStringCita($estado){
+        if ($estado=='A'){
+            $texto = 'Activo';
+        }elseif ($estado=='D'){
+            $texto = 'Reprogramado';
+        }elseif ($estado == 'F'){
+            $texto = 'Terminado';
+        }else{
+            $texto = 'Rechazado';
+        }
+        return $texto;
+    }
+
+    public static function estadoColorCita($estado){
+        if ($estado=='A'){
+            $color = 'success';
+        }elseif ($estado=='D'){
+            $color = 'info';
+        }elseif ($estado == 'F'){
+            $color = 'secondary';
+        }else{
+            $color = 'danger';
+        }
+        return $color;
     }
 }
 

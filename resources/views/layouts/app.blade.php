@@ -46,12 +46,12 @@
         <i class="bi bi-list toggle-sidebar-btn text-success"></i>
     </div><!-- End Logo -->
 
-    <div class="search-bar">
+    <!--div class="search-bar">
         <form class="search-form d-flex align-items-center" method="POST" action="#">
             <input type="text" name="query" placeholder="Buscar" title="Enter search keyword">
             <button type="submit" title="Search"><i class="bi bi-search"></i></button>
         </form>
-    </div><!-- End Search Bar -->
+    </div--><!-- End Search Bar -->
 
     <nav class="header-nav ms-auto">
         <ul class="d-flex align-items-center">
@@ -354,17 +354,12 @@
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="{{route('citas.index')}}">
+                    <a href="{{route('pacientes.citas')}}">
                         <i class="bi bi-circle"></i><span>Citas</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('citas.atender')}}">
-                        <i class="bi bi-circle"></i><span>Atender cita</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="tables-data.html">
+                    <a href="{{route('pacientes.historial')}}">
                         <i class="bi bi-circle"></i><span>Historial de Citas</span>
                     </a>
                 </li>
@@ -383,17 +378,17 @@
             </a>
             <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="charts-chartjs.html">
+                    <a href="#">
                         <i class="bi bi-circle"></i><span>Solicitar cita</span>
                     </a>
                 </li>
                 <li>
-                    <a href="charts-apexcharts.html">
+                    <a href="#">
                         <i class="bi bi-circle"></i><span>Historial de citas</span>
                     </a>
                 </li>
                 <li>
-                    <a href="charts-echarts.html">
+                    <a href="{{route('mascotas.lista')}}">
                         <i class="bi bi-circle"></i><span>Lista de mascotas</span>
                     </a>
                 </li>
