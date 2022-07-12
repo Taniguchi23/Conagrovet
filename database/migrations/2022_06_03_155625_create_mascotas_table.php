@@ -22,6 +22,7 @@ return new class extends Migration
             $table->dateTime('fecha_nacimiento');
             $table->float('peso',7,3);
             $table->string('color',50);
+            $table->string('imagen')->nullable();
             $table->string('descripcion',200)->nullable();
             $table->char('esterilizado',1)->default('N')->comment('N:No | S:Si');
             $table->char('estado',1)->default('V')->comment('V:vivo | F:Fallecido');

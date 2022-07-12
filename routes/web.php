@@ -30,21 +30,6 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function (){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    Route::controller(DoctorController::class)->group(function (){
-        Route::get('/pacientes/citas','index')->name('pacientes.citas');
-        Route::get('/pacientes/atender/{id}','atender')->name('pacientes.atender');
-        Route::get('/pacientes/historial','historial')->name('pacientes.historial');
-        Route::get('/pacientes/historial/ver/{id}','ver')->name('pacientes.ver');
-        Route::post('/pacientes/citas/store','store')->name('citas.store');
-        Route::get('/pacientes/citas/edit/{id}','edit')->name('citas.edit');
-        Route::post('/pacientes/citas/update/{id}','update')->name('citas.update');
-        Route::get('/pacientes/citas/listamascotas/{email}','listaMascota');
-    });
-
-    Route::controller(PerroController::class)->group(function (){
-        Route::get('/perros','index')->name('perros.index');
-
-    });
 
 
     Route::group(['middleware' => 'isAdmin'], function (){
@@ -115,6 +100,20 @@ Route::group(['middleware' => 'auth'], function (){
     });
 
     Route::group(['middleware' => 'isDoctor'], function (){
+        Route::controller(DoctorController::class)->group(function (){
+            Route::get('/pacientes/citas','index')->name('pacientes.citas');
+            Route::get('/pacientes/atender/{id}','atender')->name('pacientes.atender');
+            Route::get('/pacientes/historial','historial')->name('pacientes.historial');
+            Route::get('/pacientes/historial/ver/{id}','ver')->name('pacientes.ver');
+            Route::post('/pacientes/citas/store','store')->name('citas.store');
+            Route::get('/pacientes/citas/edit/{id}','edit')->name('citas.edit');
+            Route::post('/pacientes/citas/update/{id}','update')->name('citas.update');
+            Route::get('/pacientes/citas/listamascotas/{email}','listaMascota');
+            Route::get('/pacientes/citas/listavacunas/{cita}','listaVacuna');
+            Route::get('/pacientes/citas/listahistorial/{mascota}','listaHistorial')->name('lista.historial');
+            Route::post('/pacientes/citas/atencion/store','atencionStore')->name('atencion.store');
+            Route::get('/pacientes/citas/ver/{id}', 'verCita')->name('citas.ver');
+        });
 
     });
 
@@ -122,6 +121,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::controller(PerroController::class)->group(function (){
             Route::get('/mascotas','lista')->name('mascotas.lista');
             Route::get('/mascotas/perfil/{id}', 'perfil')->name('mascotas.perfil');
+            Route::post('/mascotas/foto/cambiar','subirFoto')->name('mascota.foto');
         });
 
     });

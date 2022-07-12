@@ -49,8 +49,12 @@
                                     <td>{{Util::formatoFecha($cita->fecha_programacion)}}</td>
                                     <td><span class="btn btn-{{Util::estadoColorCita($cita->estado)}}">{{Util::estadoStringCita($cita->estado)}}</span></td>
                                     <td>
-                                        <button type="button" data-bs-target="#modalDatos" data-bs-toggle="modal" class="btn btn-m text-primary btnEditar" data-id="{{$cita->id}}"><i class="bi bi-pencil-square"></i></button>
-                                        <a class="text-danger" href="{{route('pacientes.atender',$cita->id)}}" ><i class="bi bi-play-circle-fill"></i></a>
+                                       @if($cita->estado != 'F')
+                                            <button type="button" data-bs-target="#modalDatos" data-bs-toggle="modal" class="btn btn-m text-primary btnEditar" data-id="{{$cita->id}}"><i class="bi bi-pencil-square"></i></button>
+                                            <a class="text-danger" href="{{route('pacientes.atender',$cita->id)}}" ><i class="bi bi-play-circle-fill"></i></a>
+                                        @else
+                                            <a class="text-primary" href="{{route('citas.ver',$cita->id)}}"><i class="bi bi-eye-fill"></i></a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

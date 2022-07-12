@@ -19,11 +19,11 @@
                 <div class="card">
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-                        <img src="/storage/raza/avatar.jpg" alt="Profile" class="rounded-circle">
+                        <img src="{{Storage::url($mascota->imagen)}}" alt="Profile" class="rounded-circle">
                         <h2>{{$mascota->nombre}}</h2>
                         <h3>{{$mascota->raza->nombre}}</h3>
                         <div class="pt-2">
-                            <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
+                            <button type="button" class="btn btn-primary btn-sm" title="Cambiar imagen del engreído" data-bs-toggle="modal" data-bs-target="#basicModal"><i class="bi bi-upload"></i></button>
                         </div>
                     </div>
                 </div>
@@ -49,9 +49,7 @@
                                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Vacunas</button>
                             </li>
 
-                            <!-- <li class="nav-item">
-                              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
-                            </li> -->
+
 
                         </ul>
                         <div class="tab-content pt-2">
@@ -110,19 +108,39 @@
 
                             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
-                                <!-- Profile Edit Form -->
-                                <form>
-                                    <div class="row mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Lista del Historial</h5>
+
+                                        <!-- List group with Links and buttons -->
+                                        <div class="list-group">
+                                            @foreach($citas as $cita)
+                                            <a href="" class="list-group-item list-group-item-action active" aria-current="true">
+                                                {{$cita->nombre}} - {{Util::formatoFecha($cita->fecha_programacion)}}
+                                            </a>
+                                            @endforeach
+                                        </div><!-- End List group with Links and buttons -->
 
                                     </div>
-
-
-                                </form><!-- End Profile Edit Form -->
+                                </div>
 
                             </div>
+                            <div class="tab-pane fade profile-edit pt-3" id="profile-settings">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Vacunas de {{$mascota->nombre}}</h5>
+                                        <p>Si<code> va a viajar y necesita un comprobante de las vacunas</code> solicitelo con nosotros. </p>
 
+                                        <!-- List group with active and disabled items -->
+                                        <ul class="list-group list-group-flush">
+                                            @foreach($listaVacunas as $ids => $vacunas)
+                                            <li class="list-group-item">{{$vacunas['nombre']}} - <span class="text-success fw-bold">Código: {{$vacunas['codigo']}}</span> </li>
+                                            @endforeach
+                                        </ul><!-- End Clean list group -->
 
-
+                                    </div>
+                                </div>
+                            </div>
                         </div><!-- End Bordered Tabs -->
 
                     </div>
@@ -132,4 +150,30 @@
         </div>
     </section>
 
+
+    <div class="modal fade" id="basicModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cambiar Foto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{route('mascota.foto')}}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <input type="hidden" name="mascota_id" value="{{$mascota->id}}">
+                        <div class="row mb-3">
+                            <div class="col-sm-12">
+                                <input class="form-control" type="file" name="imagen">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div><!-- End Basic Modal-->
 @endsection

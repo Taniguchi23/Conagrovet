@@ -19,6 +19,7 @@ return new class extends Migration
             $table->float('peso',8,3);
             $table->string('f_card');
             $table->string('f_resp');
+            $table->string('tpc');
             $table->string('diagnostico');
             $table->text('descripcion')->nullable();
             $table->char('tratamiento')->default('N')->comment('S:si | N:no');

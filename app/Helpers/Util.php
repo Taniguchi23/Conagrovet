@@ -162,6 +162,13 @@ class Util {
         }
         return $color;
     }
+
+    public static function formatoCita($id){
+        $string = substr(str_repeat(0, 5).$id, - 10);
+        return $string;
+    }
+
+
 }
 
 

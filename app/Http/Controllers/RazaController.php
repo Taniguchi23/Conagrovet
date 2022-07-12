@@ -29,6 +29,8 @@ class RazaController extends Controller
         }
         if (isset($request->imagen)){
             $raza->imagen = $request->file('imagen')->store('public/raza');
+        }else{
+            $raza->imagen = 'public/raza/avatar.jpg';
         }
         $raza->save();
         return redirect()->route('razas.index');

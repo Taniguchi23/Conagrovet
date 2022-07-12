@@ -11,4 +11,7 @@ class Tratamiento extends Model
     public function file(){
         return $this->belongsTo(File::class);
     }
+    public function vacuna(){
+        return $this->belongsTo(Vacuna::class);
+    }
 }

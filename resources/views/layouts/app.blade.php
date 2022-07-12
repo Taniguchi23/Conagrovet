@@ -363,11 +363,7 @@
                         <i class="bi bi-circle"></i><span>Historial de Citas</span>
                     </a>
                 </li>
-                <li>
-                    <a href="tables-data.html">
-                        <i class="bi bi-circle"></i><span>Registrar cliente</span>
-                    </a>
-                </li>
+
             </ul>
         </li><!-- End Tables Nav -->
         @endif
@@ -377,16 +373,6 @@
                 <i class="bi bi-card-list"></i><span>Mascotas</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>Solicitar cita</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>Historial de citas</span>
-                    </a>
-                </li>
                 <li>
                     <a href="{{route('mascotas.lista')}}">
                         <i class="bi bi-circle"></i><span>Lista de mascotas</span>

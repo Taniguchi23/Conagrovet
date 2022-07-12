@@ -18,8 +18,8 @@
                 <h5 class="card-title text-center">Conagrovet : Cita N° {{Util::formatoCita($cita->id)}}</h5>
 
                 <!-- General Form Elements -->
-                <form action="{{route('atencion.store')}}" method="POST">
-                    @csrf
+                <form >
+
                     <div class="row mb-3">
                         <label for="inputText" class="col-sm-2 col-form-label">Propietario</label>
                         <div class="col-sm-4">
@@ -66,44 +66,44 @@
                     <div class="row mb-3">
                         <div class="col-sm-3">
                             <label >Peso Kg.</label>
-                            <input type="number" min="0.001" step="0.001" class="form-control" name="peso" required>
+                            <input type="number" min="0.001" step="0.001" class="form-control" name="peso" value="{{$file->peso}}" readonly>
                         </div>
                         <div class="col-sm-3">
                             <label >Frec. Cardiaca (1min) </label>
-                            <input type="number" min="0" step="0.001" class="form-control" name="f_card" required>
+                            <input type="number" min="0" step="0.001" class="form-control" name="f_card" value="{{$file->f_card}}"readonly>
                         </div>
                         <div class="col-sm-3">
                             <label >Frec. Respiratoria (1min)</label>
-                            <input type="number" min="0" step="0.001" class="form-control" name="f_resp" required>
+                            <input type="number" min="0" step="0.001" class="form-control" name="f_resp" value="{{$file->f_resp}}" readonly>
                         </div>
                         <div class="col-sm-3">
                             <label >TPC</label>
-                            <input type="number" min="0" step="0.01" class="form-control" name="tpc" required>
+                            <input type="number" min="0" step="0.01" class="form-control" name="tpc" value="{{$file->tpc}}" readonly>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="inputPassword" class="col-sm-2 col-form-label">Diagnóstico</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" style="height: 100px" required name="diagnostico"></textarea>
+                            <textarea class="form-control" style="height: 100px" required name="diagnostico" readonly>{{$file->diagnostico}}</textarea>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="inputPassword" class="col-sm-2 col-form-label">Descripción</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" style="height: 100px" name="descripcion"></textarea>
+                            <textarea class="form-control" style="height: 100px" name="descripcion" readonly>{{$file->descripcion}}</textarea>
                         </div>
                     </div>
                     <fieldset class="row mb-3">
                         <legend class="col-form-label col-sm-2 pt-0">¿Se vacunará al paciente?</legend>
                         <div class="col-sm-10">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="radio" id="radioNo" value="option1" checked>
+                                <input class="form-check-input" type="radio" name="radio" id="radioNo" value="option1" {{$file->tratamiento ==='S'? '': 'checked'}} disabled>
                                 <label class="form-check-label" for="gridRadios1">
                                     No
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="radio" id="radioSi" value="option2">
+                                <input class="form-check-input" type="radio" name="radio" id="radioSi" value="option2" {{$file->tratamiento ==='S'? 'checked': ''}} disabled>
                                 <label class="form-check-label" for="gridRadios2">
                                     Si
                                 </label>
@@ -111,27 +111,21 @@
                         </div>
                     </fieldset>
                     <input type="hidden" name="cita_id" value="{{$cita->id}}" id="citaId">
-                    <div class="row mb-3" id="divVacunas" style="display: none">
+                   @if($file->tratamiento === 'S')
+                        <div class="row mb-3" id="divVacunas" >
+                            <label class="col-sm-2 col-form-label">Vacunas</label>
+                            <div class="col-sm-6">
+                                <select class="form-select" id="listaVacunas" name="vacuna" aria-label="Default select example" disabled>
+                                    <option value="">{{$tratamiento->vacuna->producto->nombre}}</option>
+                                </select>
+                            </div>
 
-                        <label class="col-sm-2 col-form-label">Vacunas</label>
-                        <div class="col-sm-6">
-                            <select class="form-select" id="listaVacunas" name="vacuna" aria-label="Default select example">
-
-                            </select>
+                            <div class="col-sm-6">
+                                <label>Código de la vacuna</label>
+                                <input type="test" class="form-control" name="codigo" value="{{$tratamiento->codigo}}" readonly>
+                            </div>
                         </div>
-
-                        <div class="col-sm-3">
-                            <label>Código de la vacuna</label>
-                            <input type="test" class="form-control" name="codigo" value="">
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary">Guardar Cita</button>
-                        </div>
-                    </div>
-
+                    @endif
                 </form><!-- End General Form Elements -->
 
             </div>
