@@ -13,13 +13,14 @@ use App\Http\Controllers\VacunaController;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PerroController;
+use App\Http\Controllers\MascotaController;
 
 Route::controller(WebController::class)->group(function (){
     Route::get('/','index')->name('web.index');
     Route::get('/quienes','quienes')->name('web.quienes');
     Route::get('/contacto','contactos')->name('web.contactos');
     Route::get('/servicio','servicios')->name('web.servicios');
-    Route::get('/nosotros','quienes')->name('web.nosotros');
+    Route::get('/nosotros','familia')->name('web.nosotros');
     Route::get('/login','autentificacions');
     Route::post('/consultas','consultas');
 });
@@ -97,6 +98,8 @@ Route::group(['middleware' => 'auth'], function (){
             Route::post('/series/update/{id}','update')->name('series.update');
             Route::get('/series/delete/{id}','delete')->name('series.delete');
         });
+
+
     });
 
     Route::group(['middleware' => 'isDoctor'], function (){
@@ -115,6 +118,14 @@ Route::group(['middleware' => 'auth'], function (){
             Route::get('/pacientes/citas/ver/{id}', 'verCita')->name('citas.ver');
         });
 
+        Route::controller(MascotaController::class)->group(function (){
+            Route::get('/admin/mascota','index')->name('admin.mascotas.index');
+            Route::post('/admin/mascota/store','store')->name('admin.mascotas.store');
+            Route::get('/admin/mascota/edit/{id}','edit')->name('admin.mascotas.edit');
+            Route::post('/admin/mascota/update/{id}','update')->name('admin.mascotas.update');
+            Route::get('/admin/mascota/delete/{id}','delete')->name('admin.mascotas.delete');
+        });
+
     });
 
     Route::group(['middleware' => 'isCliente'], function (){
@@ -122,8 +133,8 @@ Route::group(['middleware' => 'auth'], function (){
             Route::get('/mascotas','lista')->name('mascotas.lista');
             Route::get('/mascotas/perfil/{id}', 'perfil')->name('mascotas.perfil');
             Route::post('/mascotas/foto/cambiar','subirFoto')->name('mascota.foto');
+            Route::get('/mascotas/pdf/{id}','pdf')->name('mascotas.pdf');
         });
-
     });
 });
 

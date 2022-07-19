@@ -57,9 +57,9 @@
                             <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                                 <div class="row">
-                                    <div class="col-lg-9 col-md-9 col-sm-8 mt-2"><h5 class="text-success">Detalles del Perro</h5></div>
+                                    <div class="col-lg-9 col-md-9 col-sm-8 mt-2"><h5 class="text-success">Detalles del {{$mascota->raza->animal->nombre}}</h5></div>
                                     <div class="col-lg-3 col-md-3 col-sm-4 d-flex">
-                                        <button type="button" class="btn btn-success">Exportar <i class="bi bi-file-earmark-pdf-fill"></i> </button>
+                                        <a href="{{route('mascotas.pdf', $mascota->id)}}" class="btn btn-success">Exportar <i class="bi bi-file-earmark-pdf-fill"></i> </a>
                                     </div>
                                 </div>
 

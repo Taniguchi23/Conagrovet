@@ -363,7 +363,11 @@
                         <i class="bi bi-circle"></i><span>Historial de Citas</span>
                     </a>
                 </li>
-
+                <li>
+                    <a href="{{route('admin.mascotas.index')}}">
+                        <i class="bi bi-circle"></i><span>Registrar Mascotas</span>
+                    </a>
+                </li>
             </ul>
         </li><!-- End Tables Nav -->
         @endif
